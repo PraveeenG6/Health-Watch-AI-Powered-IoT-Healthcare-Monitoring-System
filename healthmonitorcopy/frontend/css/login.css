@@ -1,0 +1,278 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   LOGIN PAGE — Glass Card with Animated Background
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.login-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-login);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Particle Background ─────────────────────────────────────────── */
+.login-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.login-particles .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        transform: translateY(-100px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* ── Login Container ─────────────────────────────────────────────── */
+.login-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 440px;
+    padding: var(--space-xl);
+}
+
+/* ── Glass Card ──────────────────────────────────────────────────── */
+.login-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-xl);
+    animation: slideUp 0.6s var(--transition-slow);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-brand);
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Login Header ────────────────────────────────────────────────── */
+.login-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.logo-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-md);
+    animation: pulse-logo 3s infinite;
+}
+
+@keyframes pulse-logo {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.login-header h1 {
+    font-size: var(--font-2xl);
+    font-weight: 800;
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+
+.login-subtitle {
+    font-size: var(--font-sm);
+    color: var(--text-tertiary);
+    font-weight: 400;
+}
+
+/* ── Role Selector ───────────────────────────────────────────────── */
+.role-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+}
+
+.role-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: var(--bg-input);
+    color: var(--text-tertiary);
+    font-weight: 500;
+    font-size: var(--font-sm);
+    transition: all var(--transition-base);
+}
+
+.role-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.role-btn:hover {
+    border-color: var(--border-active);
+    color: var(--text-secondary);
+    background: var(--bg-card-hover);
+}
+
+.role-btn.active {
+    border-color: var(--primary);
+    background: var(--success-bg);
+    color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 212, 170, 0.1);
+}
+
+/* ── Form ────────────────────────────────────────────────────────── */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.input-group label {
+    display: block;
+    font-size: var(--font-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0 var(--space-md);
+    transition: all var(--transition-fast);
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+}
+
+.input-wrapper svg {
+    width: 18px;
+    height: 18px;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+}
+
+.input-wrapper input {
+    flex: 1;
+    padding: 12px;
+    background: none;
+    color: var(--text-primary);
+    font-size: var(--font-base);
+}
+
+.input-wrapper input::placeholder {
+    color: var(--text-muted);
+}
+
+.toggle-password {
+    padding: 4px;
+    color: var(--text-tertiary);
+    transition: color var(--transition-fast);
+}
+.toggle-password:hover { color: var(--text-secondary); }
+.toggle-password svg { width: 18px; height: 18px; }
+
+/* ── Login Button ────────────────────────────────────────────────── */
+.login-btn {
+    position: relative;
+    width: 100%;
+    padding: 14px;
+    background: var(--gradient-brand);
+    color: white;
+    font-weight: 700;
+    font-size: var(--font-md);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    overflow: hidden;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow), var(--shadow-md);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-btn.loading .btn-text { opacity: 0; }
+.login-btn.loading .btn-loader { display: block; }
+
+.btn-loader {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ── Login Error ─────────────────────────────────────────────────── */
+.login-error {
+    font-size: var(--font-sm);
+    color: var(--danger);
+    text-align: center;
+    min-height: 20px;
+}
+
+/* ── Login Footer ────────────────────────────────────────────────── */
+.login-footer {
+    text-align: center;
+    margin-top: var(--space-lg);
+    font-size: var(--font-xs);
+    color: var(--text-muted);
+}

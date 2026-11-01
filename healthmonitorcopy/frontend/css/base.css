@@ -1,0 +1,425 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   BASE STYLES — Reset, Typography, Utilities
+   ═══════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-light); }
+
+img { max-width: 100%; display: block; }
+
+button {
+    cursor: pointer;
+    font-family: var(--font-family);
+    border: none;
+    outline: none;
+    background: none;
+    color: inherit;
+}
+
+input, textarea, select {
+    font-family: var(--font-family);
+    font-size: var(--font-base);
+    outline: none;
+    border: none;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb {
+    background: var(--text-tertiary);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+::selection {
+    background: rgba(0, 212, 170, 0.3);
+    color: #fff;
+}
+
+/* ── Page System ─────────────────────────────────────────────────── */
+.page {
+    display: none;
+    min-height: 100vh;
+}
+.page.active {
+    display: block;
+}
+
+/* ── Navbar ───────────────────────────────────────────────────────── */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--navbar-height);
+    padding: 0 var(--space-xl);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-left, .nav-center, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: 700;
+    font-size: var(--font-lg);
+    color: var(--text-primary);
+}
+.nav-logo svg { width: 28px; height: 28px; }
+
+.nav-title {
+    font-size: var(--font-md);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-xs);
+    color: var(--success);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(0, 212, 170, 0); }
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gradient-brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-sm);
+    color: #fff;
+}
+.user-avatar.doctor {
+    background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+}
+
+.user-name {
+    font-size: var(--font-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.logout-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-tertiary);
+    transition: all var(--transition-fast);
+}
+.logout-btn:hover {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+.logout-btn svg { width: 18px; height: 18px; }
+
+/* ── SOS Button ──────────────────────────────────────────────────── */
+.sos-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--gradient-danger);
+    color: white;
+    font-weight: 700;
+    font-size: var(--font-sm);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    animation: sos-glow 3s infinite;
+}
+.sos-btn svg { width: 16px; height: 16px; }
+.sos-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
+}
+
+@keyframes sos-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(255, 107, 107, 0.2); }
+}
+
+/* ── Alert Bell ──────────────────────────────────────────────────── */
+.alert-bell {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+.alert-bell:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+.alert-bell svg { width: 20px; height: 20px; }
+.alert-count {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: var(--radius-full);
+    background: var(--danger);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+/* ── Dashboard Content ───────────────────────────────────────────── */
+.dashboard-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+/* ── Status Banner ───────────────────────────────────────────────── */
+.status-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-xl);
+    background: var(--success-bg);
+    border: 1px solid rgba(0, 212, 170, 0.15);
+    transition: all var(--transition-base);
+}
+.status-banner.warning {
+    background: var(--warning-bg);
+    border-color: rgba(253, 203, 110, 0.15);
+}
+.status-banner.danger {
+    background: var(--danger-bg);
+    border-color: rgba(255, 107, 107, 0.15);
+}
+.status-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: 600;
+    font-size: var(--font-base);
+}
+.status-time {
+    font-size: var(--font-xs);
+    color: var(--text-tertiary);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+.btn-primary {
+    padding: 10px 20px;
+    background: var(--gradient-brand);
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: var(--font-sm);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-fast);
+}
+.btn-secondary:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+    border-color: var(--border-active);
+}
+.btn-secondary svg { width: 16px; height: 16px; }
+
+.btn-danger {
+    padding: 12px 24px;
+    background: var(--gradient-danger);
+    color: white;
+    font-weight: 700;
+    font-size: var(--font-base);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+.btn-danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+}
+
+/* ── Card Panel ──────────────────────────────────────────────────── */
+.card-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    transition: all var(--transition-base);
+}
+.card-panel:hover {
+    border-color: var(--border-active);
+    box-shadow: 0 0 20px rgba(0, 212, 170, 0.03);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+.panel-header h2 {
+    font-size: var(--font-lg);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ── Badge ────────────────────────────────────────────────────────── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 8px;
+    border-radius: var(--radius-full);
+    background: var(--accent);
+    color: white;
+    font-size: var(--font-xs);
+    font-weight: 700;
+}
+.badge.danger {
+    background: var(--danger);
+}
+
+/* ── Empty State ─────────────────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-tertiary);
+    font-size: var(--font-base);
+}
+
+/* ── Section Header ──────────────────────────────────────────────── */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+.section-header h2 {
+    font-size: var(--font-xl);
+    font-weight: 800;
+}
+
+/* ── Back Button ─────────────────────────────────────────────────── */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: var(--font-base);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    margin-bottom: var(--space-lg);
+}
+.back-btn:hover {
+    color: var(--primary);
+    background: var(--success-bg);
+}
+.back-btn svg { width: 18px; height: 18px; }
+
+/* ── Utilities ───────────────────────────────────────────────────── */
+.mt-24 { margin-top: 24px; }
+.hidden { display: none !important; }
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 var(--space-md);
+    }
+    .nav-center { display: none; }
+    .dashboard-content {
+        padding: var(--space-md);
+    }
+    .status-banner {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+    }
+    .user-name { display: none; }
+}

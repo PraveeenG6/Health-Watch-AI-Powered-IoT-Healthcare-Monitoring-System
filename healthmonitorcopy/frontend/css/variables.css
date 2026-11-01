@@ -1,0 +1,106 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — HealthWatch Color System & Spacing
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* ── Brand Colors ────────────────────────────────────────────────── */
+    --primary:          #00d4aa;
+    --primary-dark:     #00b894;
+    --primary-light:    #55efc4;
+    --accent:           #0099ff;
+    --accent-dark:      #0077cc;
+    --accent-light:     #74b9ff;
+
+    /* ── Semantic Colors ─────────────────────────────────────────────── */
+    --success:          #00d4aa;
+    --success-bg:       rgba(0, 212, 170, 0.12);
+    --warning:          #fdcb6e;
+    --warning-bg:       rgba(253, 203, 110, 0.12);
+    --danger:           #ff6b6b;
+    --danger-bg:        rgba(255, 107, 107, 0.12);
+    --info:             #74b9ff;
+    --info-bg:          rgba(116, 185, 255, 0.12);
+
+    /* ── Dark Theme Colors ───────────────────────────────────────────── */
+    --bg-primary:       #0a0e1a;
+    --bg-secondary:     #111827;
+    --bg-tertiary:      #1a2035;
+    --bg-card:          #161d2f;
+    --bg-card-hover:    #1e2742;
+    --bg-elevated:      #1f2937;
+    --bg-input:         #1a2035;
+
+    /* ── Glass Effect ────────────────────────────────────────────────── */
+    --glass-bg:         rgba(22, 29, 47, 0.75);
+    --glass-border:     rgba(255, 255, 255, 0.06);
+    --glass-shadow:     0 8px 32px rgba(0, 0, 0, 0.3);
+
+    /* ── Text Colors ─────────────────────────────────────────────────── */
+    --text-primary:     #f1f5f9;
+    --text-secondary:   #94a3b8;
+    --text-tertiary:    #64748b;
+    --text-muted:       #475569;
+
+    /* ── Border & Dividers ───────────────────────────────────────────── */
+    --border-color:     rgba(255, 255, 255, 0.06);
+    --border-subtle:    rgba(255, 255, 255, 0.03);
+    --border-active:    rgba(0, 212, 170, 0.3);
+
+    /* ── Gradients ───────────────────────────────────────────────────── */
+    --gradient-brand:   linear-gradient(135deg, #00d4aa 0%, #0099ff 100%);
+    --gradient-card:    linear-gradient(145deg, #161d2f 0%, #1a2035 100%);
+    --gradient-danger:  linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    --gradient-login:   linear-gradient(135deg, #0a0e1a 0%, #111827 50%, #0d1b2a 100%);
+    --gradient-glow:    radial-gradient(circle at 50% 50%, rgba(0, 212, 170, 0.08), transparent 70%);
+
+    /* ── Vital Card Colors ───────────────────────────────────────────── */
+    --hr-color:         #ff6b6b;
+    --hr-bg:            rgba(255, 107, 107, 0.1);
+    --spo2-color:       #74b9ff;
+    --spo2-bg:          rgba(116, 185, 255, 0.1);
+    --temp-color:       #fdcb6e;
+    --temp-bg:          rgba(253, 203, 110, 0.1);
+    --steps-color:      #55efc4;
+    --steps-bg:         rgba(85, 239, 196, 0.1);
+
+    /* ── Typography ──────────────────────────────────────────────────── */
+    --font-family:      'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-xs:          0.75rem;
+    --font-sm:          0.8125rem;
+    --font-base:        0.875rem;
+    --font-md:          1rem;
+    --font-lg:          1.125rem;
+    --font-xl:          1.5rem;
+    --font-2xl:         2rem;
+    --font-3xl:         2.5rem;
+
+    /* ── Spacing ─────────────────────────────────────────────────────── */
+    --space-xs:         0.25rem;
+    --space-sm:         0.5rem;
+    --space-md:         1rem;
+    --space-lg:         1.5rem;
+    --space-xl:         2rem;
+    --space-2xl:        3rem;
+
+    /* ── Radius ──────────────────────────────────────────────────────── */
+    --radius-sm:        6px;
+    --radius-md:        10px;
+    --radius-lg:        16px;
+    --radius-xl:        20px;
+    --radius-full:      999px;
+
+    /* ── Transitions ─────────────────────────────────────────────────── */
+    --transition-fast:  0.15s ease;
+    --transition-base:  0.25s ease;
+    --transition-slow:  0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* ── Shadows ─────────────────────────────────────────────────────── */
+    --shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.2);
+    --shadow-md:        0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-lg:        0 8px 30px rgba(0, 0, 0, 0.35);
+    --shadow-xl:        0 20px 60px rgba(0, 0, 0, 0.4);
+    --shadow-glow:      0 0 30px rgba(0, 212, 170, 0.15);
+
+    /* ── Navbar ───────────────────────────────────────────────────────── */
+    --navbar-height:    64px;
+}

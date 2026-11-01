@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthWatch - Smart IoT Health Monitoring System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css?v=file-config-20260512">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/alerts.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/simple-theme.css">
+</head>
+<body>
+    <div id="login-page" class="page active">
+        <div class="login-bg">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="login-header">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                                <circle cx="24" cy="24" r="21" stroke="#087f8c" stroke-width="3"/>
+                                <path d="M13 24h7l3-6 5 13 3-7h5" stroke="#2f6fed" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h1>HealthWatch</h1>
+                        <p class="login-subtitle">Spring Boot + MongoDB + DL4J</p>
+                    </div>
+
+                    <div class="role-selector">
+                        <button class="role-btn active" type="button" data-role="PATIENT" id="role-patient-btn">Patient</button>
+                        <button class="role-btn" type="button" data-role="DOCTOR" id="role-doctor-btn">Doctor</button>
+                    </div>
+
+                    <form id="login-form" class="login-form" autocomplete="off">
+                        <div class="input-group">
+                            <label for="login-user-id">User ID</label>
+                            <div class="input-wrapper">
+                                <input id="login-user-id" name="userId" type="text" value="patient1" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="login-password">Password</label>
+                            <div class="input-wrapper">
+                                <input id="login-password" name="password" type="password" value="miniproject" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="login-btn" id="login-submit-btn">
+                            <span class="btn-text">Login</span>
+                            <div class="btn-loader"></div>
+                        </button>
+                        <div class="login-error" id="login-error"></div>
+                        <p class="login-hint">Demo: patient1/miniproject or doctor1/miniproject</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="patient-dashboard" class="page">
+        <nav class="navbar">
+            <div class="nav-left">
+                <div class="nav-logo">
+                    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                        <circle cx="16" cy="16" r="14" stroke="#087f8c" stroke-width="2"/>
+                        <path d="M8 16h5l2-4 4 9 2-5h4" stroke="#2f6fed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>HealthWatch</span>
+                </div>
+            </div>
+            <div class="nav-center">
+                <span class="nav-title">Patient Dashboard</span>
+                <span class="live-indicator"><span class="live-dot"></span> Auto refresh</span>
+            </div>
+            <div class="nav-right">
+                <button class="sos-btn" id="patient-sos-btn" type="button">SOS</button>
+                <div class="user-menu">
+                    <div class="user-avatar" id="patient-avatar">P</div>
+                    <span class="user-name" id="patient-user-name">Patient</span>
+                    <button class="logout-btn" id="patient-logout-btn" type="button" title="Logout">Exit</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="dashboard-content">
+            <div class="status-banner" id="patient-status-banner">
+                <div class="status-text">
+                    <span id="patient-status-message">All vitals are within normal range</span>
+                </div>
+                <span class="status-time" id="patient-last-updated">Last updated: --</span>
+            </div>
+
+            <section class="vitals-grid">
+                <div class="vital-card heart-rate" id="card-heartrate">
+                    <div class="vital-info">
+                        <span class="vital-label">Heart Rate</span>
+                        <div class="vital-value-row">
+                            <span class="vital-value" id="p-heartrate">--</span>
+                            <span class="vital-unit">BPM</span>
+                        </div>
+                        <span class="vital-status" id="p-hr-status">--</span>
+                    </div>
+                </div>
+                <div class="vital-card spo2" id="card-spo2">
+                    <div class="vital-info">
+                        <span class="vital-label">SpO2</span>
+                        <div class="vital-value-row">
+                            <span class="vital-value" id="p-spo2">--</span>
+                            <span class="vital-unit">%</span>
+                        </div>
+                        <span class="vital-status" id="p-spo2-status">--</span>
+                    </div>
+                </div>
+                <div class="vital-card temperature" id="card-temp">
+                    <div class="vital-info">
+                        <span class="vital-label">Temperature</span>
+                        <div class="vital-value-row">
+                            <span class="vital-value" id="p-temp">--</span>
+                            <span class="vital-unit">C</span>
+                        </div>
+                        <span class="vital-status" id="p-temp-status">--</span>
+                    </div>
+                </div>
+                <div class="vital-card steps" id="card-steps">
+                    <div class="vital-info">
+                        <span class="vital-label">Steps Today</span>
+                        <div class="vital-value-row">
+                            <span class="vital-value" id="p-steps">--</span>
+                            <span class="vital-unit">steps</span>
+                        </div>
+                        <span class="vital-status normal">Activity</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="charts-grid">
+                <div class="card-panel chart-card">
+                    <div class="panel-header"><h2>Heart Rate Over Time</h2></div>
+                    <canvas id="patient-heart-chart" height="130"></canvas>
+                </div>
+                <div class="card-panel chart-card">
+                    <div class="panel-header"><h2>Temperature Trend</h2></div>
+                    <canvas id="patient-temp-chart" height="130"></canvas>
+                </div>
+                <div class="card-panel chart-card">
+                    <div class="panel-header"><h2>SpO2 Levels</h2></div>
+                    <canvas id="patient-spo2-chart" height="130"></canvas>
+                </div>
+            </section>
+
+            <section class="card-panel">
+                <div class="panel-header">
+                    <h2>Recent Readings</h2>
+                    <span class="badge" id="p-reading-count">0</span>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Heart Rate</th>
+                                <th>SpO2</th>
+                                <th>Temp</th>
+                                <th>Steps</th>
+                                <th>Fall</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patient-readings-body">
+                            <tr><td colspan="7" class="empty-state">No readings yet.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card-panel">
+                <div class="panel-header"><h2>Doctor Consultations</h2></div>
+                <div id="patient-consultations" class="notes-list">
+                    <div class="empty-state">No consultations recorded.</div>
+                </div>
+            </section>
+
+            <section class="card-panel" id="patient-chatbot-panel">
+                <div class="panel-header"><h2>Patient Chatbot</h2></div>
+                <div id="chatbot-messages" class="chatbot-messages">
+                    <div class="chat-message bot">Ask about heart rate, oxygen, temperature, fever, or emergency signs.</div>
+                </div>
+                <form id="chatbot-form" class="chatbot-form">
+                    <input id="chatbot-message" type="text" placeholder="Type a health question..." required>
+                    <button class="btn-primary" type="submit">Send</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <div id="doctor-dashboard" class="page">
+        <nav class="navbar">
+            <div class="nav-left">
+                <div class="nav-logo">
+                    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                        <circle cx="16" cy="16" r="14" stroke="#087f8c" stroke-width="2"/>
+                        <path d="M8 16h5l2-4 4 9 2-5h4" stroke="#2f6fed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>HealthWatch</span>
+                </div>
+            </div>
+            <div class="nav-center">
+                <span class="nav-title">Doctor Dashboard</span>
+                <span class="live-indicator"><span class="live-dot"></span> Auto refresh</span>
+            </div>
+            <div class="nav-right">
+                <button class="alert-bell" id="doctor-alert-bell" type="button" title="Active alerts">
+                    Alerts <span class="alert-count" id="doctor-alert-count">0</span>
+                </button>
+                <div class="user-menu">
+                    <div class="user-avatar doctor" id="doctor-avatar">D</div>
+                    <span class="user-name" id="doctor-user-name">Doctor</span>
+                    <button class="logout-btn" id="doctor-logout-btn" type="button" title="Logout">Exit</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="dashboard-content">
+            <div id="doctor-overview" class="doctor-view active">
+                <div class="section-header">
+                    <h2>All Patients</h2>
+                    <div class="section-actions">
+                        <button class="btn-secondary" id="refresh-patients-btn" type="button">Refresh</button>
+                    </div>
+                </div>
+                <div class="patients-grid" id="doctor-patients-grid">
+                    <div class="empty-state">Loading patients...</div>
+                </div>
+
+                <section class="card-panel mt-24">
+                    <div class="panel-header">
+                        <h2>Active Alerts</h2>
+                        <span class="badge danger" id="d-active-alert-count">0</span>
+                    </div>
+                    <div id="doctor-active-alerts" class="alerts-list">
+                        <div class="empty-state">No active alerts.</div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="doctor-patient-detail" class="doctor-view">
+                <button class="back-btn" id="back-to-overview" type="button">Back to All Patients</button>
+
+                <div class="patient-detail-header" id="detail-patient-header">
+                    <div class="patient-info-left">
+                        <div class="patient-avatar-lg" id="detail-patient-avatar">?</div>
+                        <div>
+                            <h2 id="detail-patient-name">Patient Name</h2>
+                            <p id="detail-patient-meta">Status: -- | Blood: -- | Device: --</p>
+                        </div>
+                    </div>
+                    <div class="patient-info-right">
+                        <span class="detail-status-badge" id="detail-patient-status">ACTIVE</span>
+                    </div>
+                </div>
+
+                <section class="vitals-grid">
+                    <div class="vital-card heart-rate">
+                        <div class="vital-info">
+                            <span class="vital-label">Heart Rate</span>
+                            <div class="vital-value-row"><span class="vital-value" id="d-heartrate">--</span><span class="vital-unit">BPM</span></div>
+                            <span class="vital-status" id="d-hr-status">--</span>
+                        </div>
+                    </div>
+                    <div class="vital-card spo2">
+                        <div class="vital-info">
+                            <span class="vital-label">SpO2</span>
+                            <div class="vital-value-row"><span class="vital-value" id="d-spo2">--</span><span class="vital-unit">%</span></div>
+                            <span class="vital-status" id="d-spo2-status">--</span>
+                        </div>
+                    </div>
+                    <div class="vital-card temperature">
+                        <div class="vital-info">
+                            <span class="vital-label">Temperature</span>
+                            <div class="vital-value-row"><span class="vital-value" id="d-temp">--</span><span class="vital-unit">C</span></div>
+                            <span class="vital-status" id="d-temp-status">--</span>
+                        </div>
+                    </div>
+                    <div class="vital-card steps">
+                        <div class="vital-info">
+                            <span class="vital-label">Steps Today</span>
+                            <div class="vital-value-row"><span class="vital-value" id="d-steps">--</span><span class="vital-unit">steps</span></div>
+                            <span class="vital-status normal">Activity</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card-panel ai-panel">
+                    <div class="panel-header">
+                        <h2>AI Health Analysis</h2>
+                        <button class="btn-secondary" id="request-ai-btn" type="button">Analyze</button>
+                    </div>
+                    <div class="ai-content" id="ai-analysis-content">
+                        <p class="ai-placeholder">Select Analyze to run the simple DL4J risk model.</p>
+                    </div>
+                </section>
+
+                <section class="charts-grid">
+                    <div class="card-panel chart-card">
+                        <div class="panel-header"><h2>Heart Rate Over Time</h2></div>
+                        <canvas id="doctor-heart-chart" height="130"></canvas>
+                    </div>
+                    <div class="card-panel chart-card">
+                        <div class="panel-header"><h2>Temperature Trend</h2></div>
+                        <canvas id="doctor-temp-chart" height="130"></canvas>
+                    </div>
+                    <div class="card-panel chart-card">
+                        <div class="panel-header"><h2>SpO2 Levels</h2></div>
+                        <canvas id="doctor-spo2-chart" height="130"></canvas>
+                    </div>
+                </section>
+
+                <section class="card-panel">
+                    <div class="panel-header"><h2>Consultation Notes</h2></div>
+                    <form id="consultation-form" class="add-note-form">
+                        <textarea id="consultation-suggestions" placeholder="Write doctor's suggestions..." required></textarea>
+                        <div class="note-form-actions">
+                            <button class="btn-primary" type="submit">Save Consultation</button>
+                        </div>
+                    </form>
+                    <div id="doctor-consultations" class="notes-list">
+                        <div class="empty-state">No consultations recorded.</div>
+                    </div>
+                </section>
+
+                <section class="card-panel">
+                    <div class="panel-header">
+                        <h2>Reading History</h2>
+                        <span class="badge" id="d-reading-count">0</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Heart Rate</th>
+                                    <th>SpO2</th>
+                                    <th>Temp</th>
+                                    <th>Steps</th>
+                                    <th>Fall</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="doctor-readings-body">
+                                <tr><td colspan="7" class="empty-state">Select a patient to view readings.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="card-panel">
+                    <div class="panel-header"><h2>Alert History</h2></div>
+                    <div id="doctor-alert-history" class="alerts-list">
+                        <div class="empty-state">No alerts for this patient.</div>
+                    </div>
+                </section>
+
+                <section class="card-panel support-panel">
+                    <div class="panel-header"><h2>Contact</h2></div>
+                    <div class="support-content">
+                        <div class="support-item">
+                            <span class="support-label">Patient Phone</span>
+                            <span class="support-value" id="detail-patient-phone">--</span>
+                        </div>
+                        <div class="support-item">
+                            <span class="support-label">Patient Email</span>
+                            <span class="support-value" id="detail-patient-email">--</span>
+                        </div>
+                        <button class="btn-danger sos-btn-lg" id="doctor-sos-btn" type="button">Send SOS Alert</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="alert-overlay" class="alert-overlay hidden">
+        <div class="alert-popup" id="alert-popup">
+            <div class="alert-popup-icon" id="alert-popup-icon">!</div>
+            <h2 id="alert-popup-title">Health Alert</h2>
+            <p id="alert-popup-message">An alert has been triggered.</p>
+            <div class="alert-popup-details" id="alert-popup-details"></div>
+            <button class="btn-primary" id="alert-popup-dismiss" type="button">Dismiss</button>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/config.js?v=file-config-20260512"></script>
+    <script src="js/api.js?v=file-config-20260512"></script>
+    <script src="js/auth.js?v=student-ids-20260511"></script>
+    <script src="js/patient-dashboard.js?v=student-ids-20260511"></script>
+    <script src="js/doctor-dashboard.js?v=student-ids-20260511"></script>
+    <script src="js/alerts.js?v=student-ids-20260511"></script>
+    <script src="js/app.js?v=file-config-20260512"></script>
+</body>
+</html>
